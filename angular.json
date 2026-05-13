@@ -55,6 +55,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": [
+              "myb-front.benamara.tn"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "myb-client:build:production"
