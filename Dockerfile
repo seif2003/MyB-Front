@@ -5,7 +5,8 @@ ARG API_HOST=http://localhost:3000
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+# Allow legacy peer dependency resolution to avoid build-time peer conflicts in CI/docker
+RUN npm config set legacy-peer-deps true && npm ci
 
 COPY . .
 
