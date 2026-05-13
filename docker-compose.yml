@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - API_HOST=http://localhost:3000
     container_name: myb-client
     ports:
       - "4200:4200"

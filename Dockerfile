@@ -1,11 +1,21 @@
 FROM node:22-alpine
 
+ARG API_HOST=http://localhost:3000
+
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+# Create env.json with API_HOST from build arg or .env
+RUN if [ -f .env ]; then \
+  API_HOST=$(grep '^API_HOST=' .env | cut -d'=' -f2 || echo "$API_HOST"); \
+  else \
+  API_HOST="$API_HOST"; \
+  fi && \
+  echo "{\"API_HOST\":\"${API_HOST}\"}" > public/env.json
 
 EXPOSE 4200
 
